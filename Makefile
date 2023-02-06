@@ -1,45 +1,69 @@
 #Compilation stuff
 CC=g++
-PROJECT_OPTIONS=-std=c++14 -Wall
-MAIN_NAME=main
+CPPFLAGS=-std=c++14 -Wall -I$(HEADERS_DIR)
 
-OBJECTS=$(OBJECTS_DIR)*.o
+MAKEFILE_PATH=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 #projects directories paths
-SOURCES_DIR=src/
-OBJECTS_DIR=obj/
-TEST_DIR=tests/
+SOURCES_DIR=$(MAKEFILE_PATH)src/
+HEADERS_DIR=$(MAKEFILE_PATH)includes/
+OBJECTS_DIR=$(MAKEFILE_PATH)obj/
+TESTS_DIR=$(MAKEFILE_PATH)tests/
+EXECUTABLES_DIR=$(MAKEFILE_PATH)executables/
+
+SOURCES=$(wildcard $(SOURCES_DIR)*.cpp)
+OBJECTS=$(addprefix $(OBJECTS_DIR),$(addsuffix .o ,$(basename $(notdir $(SOURCES)))))
+TESTS=$(addprefix $(EXECUTABLES_DIR), $(basename $(notdir $(wildcard $(TESTS_DIR)*.cpp))))
+
+CLEAN_FLAGS=*.o *~ \#*
 
 default_target: project #generaly more usefull in the developpement process
 .PHONY : default_target
 
-#############################################
-#Build the external files to be linked later#
-#############################################
-sourcesCompilation:
-	cd $(SOURCES_DIR) &&\
-	 $(CC) *.cpp $(PROJECT_OPTIONS) -c  &&\
-	 mv *.o ../$(OBJECTS_DIR)
-.PHONY : sourcesCompilation
+
+$(OBJECT_DIR)%.o:
+	@echo "----------------------------------------------"
+	@echo "| Compiling $@ |"
+	@echo "----------------------------------------------"
+	$(CC) $(CPPFLAGS) $(addprefix $(SOURCES_DIR), $(notdir $(addsuffix .cpp, $(basename $@)))) -c
+	mv *.o $(OBJECTS_DIR)
+
+main: $(OBJECTS)
+	@echo "-------------------------------"
+	@echo "| Compiling $@ |"
+	@echo "-------------------------------"
+	$(CC) $(CPPFLAGS) $(OBJECTS) $@.cpp -o $@
+	mv $@ $(EXECUTABLES_DIR)
+
+$(TESTS): $(OBJECTS)
+	@echo "-------------------------------"
+	@echo "| Compiling $@ |"
+	@echo "-------------------------------"
+	$(CC) $(CPPFLAGS) $(OBJECTS) $(addprefix $(TESTS_DIR), $(notdir $@.cpp)) -o $@
+	mv $@ $(EXECUTABLES_DIR)
 
 #############################
 #Build only the project part#
 #############################
 project:
-	@echo "---------------------"
-	@echo "|Generating Project |"
-	@echo "---------------------"
-	@make sourcesCompilation
-	@make linking
+	@echo "----------------------"
+	@echo "| Generating Project |"
+	@echo "----------------------"
+	make main
 	@echo ""
-	@echo "Compilation of the project finished!"
+	@echo "Main Compilation finished!"
 .PHONY : project
 
-linking:
-	$(CC) $(OBJECTS) $(PROJECT_OPTIONS) -o $(MAIN_NAME)
+
+tests:
+	@echo "-------------------------"
+	@echo "| Generating Test cases |"
+	@echo "-------------------------"
+	make $(TESTS)
 	@echo ""
-	@echo "Linking of the project finished!"
-.PHONY:linking
+	@echo "Compilation of the project finished!"
+.PHONY : tests
+
 
 ###################################################################
 #Clean working directory and redo every compilation unit necessary#
@@ -48,7 +72,7 @@ linking:
 #"clean compilation"
 cc:
 	@make clean
-	@make all
+	@make project
 .PHONY : cc
 
 ##############################################################
@@ -57,11 +81,12 @@ cc:
 
 #"clean working directories"
 clean:
-	@echo "----------------------"
-	@echo "|Cleaning directories|"
-	@echo "----------------------"	
-	@cd $(OBJECTS_DIR) && rm -rf *.o || true
-	@cd $(SOURCES_DIR) && rm -f *~ \#* || true
-	@rm -f *~ \#* || true
+	@echo "------------------------"
+	@echo "| Cleaning directories |"
+	@echo "------------------------"	
+	cd $(OBJECTS_DIR) && $(RM) $(CLEAN_FLAGS) || true
+	cd $(SOURCES_DIR) && $(RM) $(CLEAN_FLAGS) || true
+	cd $(HEADERS_DIR) && $(RM) $(CLEAN_FLAGS) || true
+	cd $(TESTS_DIR) && $(RM) $(CLEAN_FLAGS) || true
+	$(RM) $(CLEAN_FLAGS) || true
 .PHONY : clean
-
