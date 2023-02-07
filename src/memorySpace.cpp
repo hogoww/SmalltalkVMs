@@ -1,9 +1,11 @@
 #include "memorySpace.h"
-#include <cstdlib>
+
 
 MemorySpace::MemorySpace(WORD_TYPE spaceSize){
+  std::cout<<spaceSize <<std::endl;
+  if((spaceSize % sizeof(WORD_TYPE)) != 0){ };
   WORD_TYPE* startAddress = new WORD_TYPE[spaceSize];
-  if(startAddress == NULL) { std::abort(); }
+  if(startAddress == NULL) { }
   endAddress = startAddress + spaceSize;
 }
 

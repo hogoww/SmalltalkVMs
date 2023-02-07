@@ -1,6 +1,6 @@
 #Compilation stuff
 CC=g++
-CPPFLAGS=-std=c++14 -Wall -I$(HEADERS_DIR)
+CPPFLAGS=-std=c++14 -Wall -g -I$(HEADERS_DIR)
 
 MAKEFILE_PATH=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
@@ -12,8 +12,9 @@ TESTS_DIR=$(MAKEFILE_PATH)tests/
 EXECUTABLES_DIR=$(MAKEFILE_PATH)executables/
 
 SOURCES=$(wildcard $(SOURCES_DIR)*.cpp)
-OBJECTS=$(addprefix $(OBJECTS_DIR),$(addsuffix .o ,$(basename $(notdir $(SOURCES)))))
-TESTS=$(addprefix $(EXECUTABLES_DIR), $(basename $(notdir $(wildcard $(TESTS_DIR)*.cpp))))
+OBJECTS=$(addprefix $(OBJECTS_DIR),$(addsuffix .o, $(basename $(notdir $(SOURCES)))))
+TEST_SOURCES=$(wildcard $(TESTS_DIR)*.cpp)
+TESTS=$(addprefix $(EXECUTABLES_DIR), $(addsuffix .exe, $(basename $(notdir $(TEST_SOURCES)))))
 
 CLEAN_FLAGS=*.o *~ \#*
 
@@ -21,26 +22,26 @@ default_target: project #generaly more usefull in the developpement process
 .PHONY : default_target
 
 
-$(OBJECT_DIR)%.o:
+$(OBJECT_DIR)%.o: $(SOURCES)
 	@echo "----------------------------------------------"
 	@echo "| Compiling $@ |"
 	@echo "----------------------------------------------"
 	$(CC) $(CPPFLAGS) $(addprefix $(SOURCES_DIR), $(notdir $(addsuffix .cpp, $(basename $@)))) -c
 	mv *.o $(OBJECTS_DIR)
 
-main: $(OBJECTS)
+main: $(OBJECTS) main.cpp
 	@echo "-------------------------------"
 	@echo "| Compiling $@ |"
 	@echo "-------------------------------"
 	$(CC) $(CPPFLAGS) $(OBJECTS) $@.cpp -o $@
 	mv $@ $(EXECUTABLES_DIR)
 
-$(TESTS): $(OBJECTS)
+$(TESTS): $(OBJECTS) $(TEST_SOURCES)
 	@echo "-------------------------------"
 	@echo "| Compiling $@ |"
 	@echo "-------------------------------"
-	$(CC) $(CPPFLAGS) $(OBJECTS) $(addprefix $(TESTS_DIR), $(notdir $@.cpp)) -o $@
-	mv $@ $(EXECUTABLES_DIR)
+	$(CC) $(CPPFLAGS) $(OBJECTS) $(addprefix $(TESTS_DIR), $(basename $(notdir $@))).cpp -o $@
+	mv $(addprefix $(TESTS_DIR), $(basename $(notdir $@))).cpp $(EXECUTABLES_DIR)
 
 #############################
 #Build only the project part#
@@ -61,7 +62,7 @@ tests:
 	@echo "-------------------------"
 	make $(TESTS)
 	@echo ""
-	@echo "Compilation of the project finished!"
+	@echo "Test Case Compilation finished !"
 .PHONY : tests
 
 

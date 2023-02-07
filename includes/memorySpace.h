@@ -2,6 +2,9 @@
 #define __MEMORY_SPACE__
 
 #define WORD_TYPE uint64_t
+#include <cstdlib>
+#include <iostream>
+
 #include <stdint.h>
 #include "oop.h"
 
