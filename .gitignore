@@ -3,4 +3,4 @@
 *.[oa]
 *~
 \#*
-antlr4_shared/
+build/
