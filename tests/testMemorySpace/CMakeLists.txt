@@ -1,0 +1,4 @@
+addTest(testAllocatingNewMemorySpace)
+addTest(testMemorySizeIsAskedSize)
+addTest(testNonDividableMemoryIsUninitialized)
+addTest(testFailledAllocationCreatesUninitializedMemory)

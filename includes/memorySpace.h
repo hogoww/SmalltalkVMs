@@ -18,7 +18,13 @@ class MemorySpace {
   ~MemorySpace();
   WORD_TYPE* getStartAddress();
   WORD_TYPE* getEndAddress();
-  WORD_TYPE memorySpaceSize();
+  void uninitialize();
+  bool isUninitialized();
+  
+  
+  WORD_TYPE bitSpaceSize();
+  WORD_TYPE byteSpaceSize();
+  WORD_TYPE wordSpaceSize();
   //oop firstOop();
 };
 

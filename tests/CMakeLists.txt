@@ -1,1 +1,1 @@
-addTest(testAllocatingNewMemorySpace)
+add_subdirectory(testMemorySpace)
