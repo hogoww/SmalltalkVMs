@@ -8,6 +8,7 @@
 
 //This test case is subject to change.
 //Should the class handle such error? don't know
+int main(){
   WORD_TYPE memorySize = -64;
   MemorySpace<WORD_TYPE>* ms;
   try{
