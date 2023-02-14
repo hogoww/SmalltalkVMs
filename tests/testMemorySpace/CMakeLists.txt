@@ -1,4 +1,18 @@
-addTest(testAllocatingNewMemorySpace)
-addTest(testMemorySizeIsAskedSize)
+
+#basic
+addTest(testAllocatingNewMemorySpaceStatically)
+addTest(testAllocatingNewMemorySpaceDynamically)
+
+#test allocating
 addTest(testNonDividableMemoryIsUninitialized)
 addTest(testFailledAllocationCreatesUninitializedMemory)
+addTest(testDefaultMemoryIsUninitialized)
+
+#space size test cases
+addTest(testBitSpaceSize)
+addTest(testByteSpaceSize)
+addTest(testWordSpaceSize)
+addTest(testBitSpaceSizeOnUninitializedMemory)
+addTest(testByteSpaceSizeOnUninitializedMemory)
+addTest(testWordSpaceSizeOnUninitializedMemory)
+

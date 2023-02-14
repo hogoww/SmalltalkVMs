@@ -6,8 +6,9 @@
 #endif
 
 int main(){
-  WORD_TYPE memorySize = 42;
+  WORD_TYPE memorySize = 640;
   MemorySpace<WORD_TYPE>* ms = new MemorySpace<WORD_TYPE>(memorySize);
-  cAssert(__LINE__, ms->isUninitialized());
+
+  cAssert(__LINE__, ms -> bitSpaceSize() == memorySize );
   testPassed();
 }
