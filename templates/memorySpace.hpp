@@ -28,25 +28,24 @@ class MemorySpace {
 };
 
 
+void halt(){}
+
 template <typename WORD_TYPE>
 MemorySpace<WORD_TYPE>::MemorySpace(WORD_TYPE spaceSize){
-
+  
   if((spaceSize % sizeof(WORD_TYPE)) != 0) {
     this -> uninitialize();
     return;
   }
-  WORD_TYPE numberOfWords = spaceSize / (sizeof(WORD_TYPE) * 8);
-  std::cout << spaceSize << " " << sizeof(WORD_TYPE)*8 << " " << numberOfWords << std::endl;
+  WORD_TYPE numberOfWords = spaceSize / (sizeof(WORD_TYPE) * 8);  
   
-  
-  WORD_TYPE* startAddress = new WORD_TYPE[numberOfWords];
-  if(startAddress == NULL) {
+  startAddress = new WORD_TYPE[numberOfWords];
+  if(this -> startAddress == NULL) {
     this -> uninitialize();
     return;
   }
 
   endAddress = startAddress + spaceSize;
-  std::cout << "start: " << std::hex << startAddress << " + " << std::hex <<spaceSize << " end: "<< endAddress << " size:" << (startAddress + spaceSize)<< std::endl;
 }
 
 template <typename WORD_TYPE>
@@ -73,16 +72,19 @@ bool MemorySpace<WORD_TYPE>::isUninitialized(){
 
 template <typename WORD_TYPE>
 WORD_TYPE* MemorySpace<WORD_TYPE>::getStartAddress(){
+  halt();
   return this->startAddress;
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE* MemorySpace<WORD_TYPE>::getEndAddress(){
+  halt();
   return this->endAddress;
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE MemorySpace<WORD_TYPE>::bitSpaceSize(){
+  halt();
   return this->endAddress - this->startAddress;
 }
 
