@@ -16,3 +16,6 @@ addTest(testBitSpaceSizeOnUninitializedMemory)
 addTest(testByteSpaceSizeOnUninitializedMemory)
 addTest(testWordSpaceSizeOnUninitializedMemory)
 
+
+#Unfilled spaces
+addTest(testUnfilledSpaceOnlyFirstOopIsFree)

@@ -1,11 +1,11 @@
-#ifndef __MEMORY_SPACE__
-#define __MEMORY_SPACE__
+#ifndef __MEMORY_SPACE__HPP__
+#define __MEMORY_SPACE__HPP__
 
 #include <cstdlib>
 #include <iostream>
-
 #include <stdint.h>
-//#include "oop.h"
+
+#include "oop.hpp"
 
 template <typename WORD_TYPE>
 class MemorySpace {
@@ -32,7 +32,9 @@ class MemorySpace {
   WORD_TYPE bitSpaceSize();
   WORD_TYPE byteSpaceSize();
   WORD_TYPE wordSpaceSize();
-  //oop firstOop();
+
+  //oop accessors
+  Oop<WORD_TYPE> firstOop();
 };
 
 
@@ -85,9 +87,12 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
   this -> endAddress = this -> startAddress + spaceSize;
 }
 
-// oop MemorySpace::firstOop(){
-//   return static_cast<oop>(startAddress);
-// }
+template <typename WORD_TYPE>
+Oop<WORD_TYPE> MemorySpace<WORD_TYPE>::firstOop(){
+  Oop<WORD_TYPE> m;
+  return m;
+  //return static_cast<Oop<WORD_TYPE> >(startAddress);
+}
 
 //Accessors
 template <typename WORD_TYPE>

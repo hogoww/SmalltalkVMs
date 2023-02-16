@@ -21,7 +21,6 @@ class MemorySpace {
   void uninitialize();
   bool isUninitialized();
   
-  
   WORD_TYPE bitSpaceSize();
   WORD_TYPE byteSpaceSize();
   WORD_TYPE wordSpaceSize();

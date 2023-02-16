@@ -5,9 +5,9 @@
 #define WORD_TYPE uint64_t
 #endif
 
-
 int main(){
-  MemorySpace<WORD_TYPE>* ms = new MemorySpace<WORD_TYPE>(640);
-  cAssert(__LINE__, ms->getStartAddress() != NULL);
+  Oop<WORD_TYPE> oop;
+  oop.setHeader(0x10000000000);
+  cAssert(__LINE__, oop.immutableBit());
   testPassed();
 }
