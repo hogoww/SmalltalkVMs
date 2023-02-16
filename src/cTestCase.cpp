@@ -1,7 +1,5 @@
-/* preamble */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "cTestCase.h"
 
 void testPassed(){
   printf("Test passed\n");
@@ -20,3 +18,9 @@ void cAssert(int line, int condition)
   testFailed(line);
 }
 
+void cAssertInts(int line, int64_t anInteger, int64_t anotherInteger)
+{
+  if (anInteger == anotherInteger) return;
+  std::cout << "Expected " << std::hex << anotherInteger << " Actual " << std::hex << anInteger << std::endl;
+  testFailed(line);
+}

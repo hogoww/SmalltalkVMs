@@ -13,12 +13,12 @@ WORD_TYPE Oop<WORD_TYPE>::hashBits(){
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::formatBits(){
-  return (this->header & 0x8F00000000) >> 27;
+  return (this->header & 0x000000008F) >> 27;
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::classIndexBits(){
-  return (this->header & 0x3FFFFF) >> 42;
+  return (this->header & 0x0000000000CFFFFF) >> 42;
 }
 
 template <typename WORD_TYPE>
