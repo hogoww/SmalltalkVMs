@@ -7,7 +7,7 @@
 
 int main(){
   Oop<WORD_TYPE> oop;
-  oop.setHeader(0x000000008F);
-  cAssertInts(__LINE__, oop.formatBits(), 0xF1);
+  oop.setHeader(0xF800000000);
+  cAssertInts(__LINE__, oop.formatBits(), 0x1F);
   testPassed();
 }

@@ -8,17 +8,17 @@ WORD_TYPE Oop<WORD_TYPE>::numberOfSlotsBits(){
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::hashBits(){
-  return (this -> header & 0x00CFFFFF) >> 10;
+  return (this -> header & 0xFFFFFC00) >> 10;
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::formatBits(){
-  return (this->header & 0x000000008F) >> 27;
+  return (this->header & 0xFE00000000) >> 35;
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::classIndexBits(){
-  return (this->header & 0x0000000000CFFFFF) >> 42;
+  return (this->header & 0xFFFFFC0000000000) >> 42;
 }
 
 template <typename WORD_TYPE>
