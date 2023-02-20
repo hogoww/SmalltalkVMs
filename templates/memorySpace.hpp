@@ -82,17 +82,19 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
   }
 
   WORD_TYPE numberOfWords = spaceSize / (sizeof(WORD_TYPE) * 8);
-
   
   this -> startAddress = new WORD_TYPE[numberOfWords];
   this -> endAddress = this -> startAddress + spaceSize;
+  Oop<WORD_TYPE> firstOop = this -> firstOop();
+  firstOop.setClassIndexBits(specialClassIndexes::freeObject);
+  //should also set up the format to avoid accidental indexable formats
+  firstOop.setNumberOfSlotsBits(this -> wordSpaceSize());
 }
 
 template <typename WORD_TYPE>
 Oop<WORD_TYPE> MemorySpace<WORD_TYPE>::firstOop(){
   Oop<WORD_TYPE> m(this -> startAddress);
   return m;
-  //return static_cast<Oop<WORD_TYPE> >(startAddress);
 }
 
 //Accessors

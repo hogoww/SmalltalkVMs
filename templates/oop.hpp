@@ -70,7 +70,7 @@ Oop<WORD_TYPE>  Oop<WORD_TYPE>::nextOop(){
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::bitSize(){
-  return this -> numberOfSlotsBits() * sizeof(WORD_TYPE);
+  return this -> numberOfSlotsBits() * sizeof(WORD_TYPE) * 8;
 }
 
 #include "memoryModel.cpp"
