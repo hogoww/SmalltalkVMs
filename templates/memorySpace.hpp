@@ -6,7 +6,6 @@
 #include <stdint.h>
 
 #include "oop.hpp"
-#include "oopMock.hpp"
 
 template <typename WORD_TYPE>
 class MemorySpace {

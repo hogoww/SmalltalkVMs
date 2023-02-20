@@ -1,4 +1,4 @@
-#include "memorySpace.hpp"
+#include "oopMock.hpp"
 #include "cTestCase.h"
 
 #ifndef WORD_TYPE
