@@ -6,6 +6,7 @@
 #include <stdint.h>
 
 #include "oop.hpp"
+#include "oopMock.hpp"
 
 template <typename WORD_TYPE>
 class MemorySpace {
@@ -89,7 +90,7 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
 
 template <typename WORD_TYPE>
 Oop<WORD_TYPE> MemorySpace<WORD_TYPE>::firstOop(){
-  Oop<WORD_TYPE> m;
+  Oop<WORD_TYPE> m(this -> startAddress);
   return m;
   //return static_cast<Oop<WORD_TYPE> >(startAddress);
 }

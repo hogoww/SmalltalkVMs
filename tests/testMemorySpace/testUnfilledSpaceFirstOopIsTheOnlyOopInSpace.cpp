@@ -8,8 +8,7 @@
 int main(){
   WORD_TYPE memorySize = 640;
   MemorySpace<WORD_TYPE>* ms = new MemorySpace<WORD_TYPE>(memorySize);
-  Oop<WORD_TYPE> oop = ms -> firstOop();
 
-  cAssert(__LINE__, ms -> firstOop().isFreeOop() );
+  cAssert(__LINE__, ms -> firstOop().nextOop().getAddress() == ms -> getEndAddress());
   testPassed();
 }

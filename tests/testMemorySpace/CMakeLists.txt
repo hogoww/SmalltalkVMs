@@ -18,4 +18,5 @@ addTest(testWordSpaceSizeOnUninitializedMemory)
 
 
 #Unfilled spaces
-addTest(testUnfilledSpaceOnlyFirstOopIsFree)
+addTest(testUnfilledSpaceFirstOopIsFree)
+addTest(testUnfilledSpaceFirstOopIsTheOnlyOopInSpace)

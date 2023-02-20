@@ -1,4 +1,4 @@
-#include "memorySpace.hpp"
+#include "oopMock.hpp"
 #include "cTestCase.h"
 
 #ifndef WORD_TYPE
@@ -6,7 +6,7 @@
 #endif
 
 int main(){
-  Oop<WORD_TYPE> oop;
+  OopMock<WORD_TYPE> oop;
   oop.setHeader(0xFFFFFFFF000003FF);
   cAssert(__LINE__, ! oop.hashBits());
   testPassed();
