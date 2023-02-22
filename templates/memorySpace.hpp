@@ -5,17 +5,26 @@
 #include <iostream>
 #include <stdint.h>
 
+
+
+template <typename WORD_TYPE>
+class MemorySpace;
+
 #include "oop.hpp"
+#include "allocator.hpp"
 
 template <typename WORD_TYPE>
 class MemorySpace {
  private:
   WORD_TYPE* startAddress;
   WORD_TYPE* endAddress;
+  OopBuilder<WORD_TYPE>* oopBuilder;
  public:
   //constructors
-  MemorySpace ();
-  MemorySpace (WORD_TYPE spaceSize);
+  MemorySpace();
+  MemorySpace(WORD_TYPE spaceSize);
+  MemorySpace(MemorySpace const& anotherMemorySpace) = delete;
+  void operator=(MemorySpace const& anotherMemorySpace) = delete;
   ~MemorySpace();
 
   //accessors
@@ -26,7 +35,6 @@ class MemorySpace {
   void initializeForBitSize(WORD_TYPE spaceSize);
   void uninitialize();
   bool isUninitialized();
-  
 
   //size computation
   WORD_TYPE bitSpaceSize();
@@ -35,6 +43,9 @@ class MemorySpace {
 
   //oop accessors
   Oop<WORD_TYPE> firstOop();
+
+  //accessors
+  OopBuilder<WORD_TYPE>* getOopBuilder();
 };
 
 
@@ -51,11 +62,18 @@ MemorySpace<WORD_TYPE>::MemorySpace(){
   this -> uninitialize();
 }
 
+// template <typename WORD_TYPE>
+// MemorySpace<WORD_TYPE>::MemorySpace(MemorySpace<WORD_TYPE>& anotherMemorySpace){
+//   this -> startAddress = anotherMemorySpace -> startAddress;
+//   this -> endAddress = anotherMemorySpace -> endAddress;
+//   this -> allocator = anotherMemorySpace -> allocator;
+// }
 
 template <typename WORD_TYPE>
 MemorySpace<WORD_TYPE>::~MemorySpace(){
   if( this -> isUninitialized()){ return; }
-
+  
+  std::cout<<"destroying the memory space" << std::endl;
   delete[] startAddress;
 }
 
@@ -84,10 +102,14 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
   
   this -> startAddress = new WORD_TYPE[numberOfWords];
   this -> endAddress = this -> startAddress + spaceSize;
+
   Oop<WORD_TYPE> firstOop = this -> firstOop();
   firstOop.setClassIndexBits(specialClassIndexes::freeObject);
   //should also set up the format to avoid accidental indexable formats
   firstOop.setNumberOfSlotsBits(this -> wordSpaceSize());
+
+  //const_cast<MemorySpace<WORD_TYPE>*>;
+  oopBuilder = new OopBuilder(this);
 }
 
 template <typename WORD_TYPE>
@@ -122,5 +144,11 @@ template <typename WORD_TYPE>
 WORD_TYPE MemorySpace<WORD_TYPE>::wordSpaceSize(){
   return this->byteSpaceSize() / sizeof(WORD_TYPE);
 }
+
+template <typename WORD_TYPE>
+OopBuilder<WORD_TYPE>* MemorySpace<WORD_TYPE>::getOopBuilder(){
+  return this -> oopBuilder;
+}
+
 
 #endif

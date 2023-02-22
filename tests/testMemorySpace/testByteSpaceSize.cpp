@@ -7,8 +7,8 @@
 
 int main(){
   WORD_TYPE memorySize = 640;
-  MemorySpace<WORD_TYPE>* ms = new MemorySpace<WORD_TYPE>(memorySize);
+  MemorySpace<WORD_TYPE> ms(memorySize);
 
-  cAssert(__LINE__, ms -> byteSpaceSize() == memorySize / (sizeof(WORD_TYPE)));
+  cAssert(__LINE__, ms.byteSpaceSize() == memorySize / (sizeof(WORD_TYPE)));
   testPassed();
 }

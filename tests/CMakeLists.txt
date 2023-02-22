@@ -1,2 +1,3 @@
 add_subdirectory(testMemorySpace)
 add_subdirectory(testMemoryModel)
+add_subdirectory(testAllocator)
