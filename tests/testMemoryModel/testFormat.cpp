@@ -1,4 +1,4 @@
-#include "oopMock.Hpp"
+#include "oopMock.hpp"
 #include "cTestCase.h"
 
 #ifndef WORD_TYPE

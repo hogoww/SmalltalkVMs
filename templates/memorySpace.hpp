@@ -109,7 +109,7 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
   firstOop.setNumberOfSlotsBits(this -> wordSpaceSize());
 
   //const_cast<MemorySpace<WORD_TYPE>*>;
-  oopBuilder = new OopBuilder(this);
+  this -> oopBuilder = new OopBuilder<WORD_TYPE>(this);
 }
 
 template <typename WORD_TYPE>
