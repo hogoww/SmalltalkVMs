@@ -3,6 +3,7 @@
 
 #include "specialClassIndexes.h"
 #include <cstdlib> // for NULL
+#include <iostream>
 
 template <typename WORD_TYPE>
 class Oop {
@@ -44,12 +45,12 @@ Oop<WORD_TYPE>::Oop(){
 
 template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::setHeader(const WORD_TYPE anHeader){
-  *this -> address = anHeader;
+  *(this -> address) = anHeader;
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::getHeader(){
-  return *this -> address;
+  return *(this -> address);
 }
 
 template <typename WORD_TYPE>

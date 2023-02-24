@@ -48,6 +48,7 @@ OopBuilder<WORD_TYPE>::OopBuilder(MemorySpace<WORD_TYPE>* aMemorySpace){
   this -> memorySpace = aMemorySpace;
   //const_cast<OopBuilder<WORD_TYPE>*>(
   this -> allocator = new Allocator<WORD_TYPE>(this);
+  this -> initialize();
 }
 
 
@@ -65,8 +66,6 @@ WORD_TYPE* OopBuilder<WORD_TYPE>::build(){
   newOop.setClassIndexBits(this -> classIndex);
   return address;
 }
-
-
 
 
 template <typename WORD_TYPE>
