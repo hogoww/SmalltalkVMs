@@ -11,9 +11,8 @@ target_include_directories(smalltalkVM PUBLIC
 				       "${PROJECT_SOURCE_DIR}/templates")
 
 
-
 ###Debug
-add_compile_options("-g")
+add_compile_options(-g -fkeep-inline-functions) #-fno-inline
 
 ### Testing
 enable_testing()

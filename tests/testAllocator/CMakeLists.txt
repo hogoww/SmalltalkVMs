@@ -1,1 +1,4 @@
 addTest(testAllocateFirstObject)
+addTest(testMovedFreeObjectIsAfterFirst)
+addTest(testMovedFreeObjectHasLessSlots)
+

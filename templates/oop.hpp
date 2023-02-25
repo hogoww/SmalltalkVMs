@@ -1,3 +1,4 @@
+
 #ifndef __OOP__HPP__
 #define __OOP__HPP__
 
@@ -29,6 +30,7 @@ class Oop {
 
   //Size
   WORD_TYPE bitSize();
+  WORD_TYPE wordSize();
 };
 
 
@@ -71,7 +73,12 @@ Oop<WORD_TYPE>  Oop<WORD_TYPE>::nextOop(){
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::bitSize(){
-  return this -> numberOfSlotsBits() * sizeof(WORD_TYPE) * 8;
+  return this -> wordSize() * sizeof(WORD_TYPE) * 8;
+}
+
+template <typename WORD_TYPE>
+WORD_TYPE Oop<WORD_TYPE>::wordSize(){
+  return this -> numberOfSlotsBits() + 1;
 }
 
 #include "memoryModel.cpp"

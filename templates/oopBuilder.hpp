@@ -54,12 +54,12 @@ OopBuilder<WORD_TYPE>::OopBuilder(MemorySpace<WORD_TYPE>* aMemorySpace){
 
 template <typename WORD_TYPE>
 WORD_TYPE* OopBuilder<WORD_TYPE>::build(){
-  WORD_TYPE numberOfWords = this -> numberOfSlots + 1;
+  WORD_TYPE numberOfWords = this -> numberOfSlots + 1; // + header
   WORD_TYPE* address = allocator -> whereToAllocateWords(numberOfWords);
   Oop<WORD_TYPE> newOop(address);
-  Oop<WORD_TYPE> newFreeOop(address + numberOfWords);
+  Oop<WORD_TYPE> newFreeOop(address + numberOfWords * sizeof(WORD_TYPE) * 8 );
   newFreeOop.setHeader(newOop.getHeader());
-  newFreeOop.setNumberOfSlotsBits(newFreeOop.numberOfSlotsBits() - this -> numberOfSlots);
+  newFreeOop.setNumberOfSlotsBits(newFreeOop.numberOfSlotsBits() - numberOfWords);
   
   newOop.setNumberOfSlotsBits(this -> numberOfSlots);
   newOop.setFormatBits(this -> format);
