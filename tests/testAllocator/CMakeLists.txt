@@ -2,3 +2,8 @@ addTest(testAllocateFirstObject)
 addTest(testMovedFreeObjectIsAfterFirst)
 addTest(testMovedFreeObjectHasLessSlots)
 
+addTest(testAllocateTwoObjectsFirstObjectIsNotOverriden)
+addTest(testAllocateTwoObjectsSecondObjectIsNotFree)
+addTest(testAllocateTwoObjectsSecondObjectHasCorrectNumberOfSlots)
+addTest(testAllocateTwoObjectsHasTwoObjects)
+addTest(testAllocateTwoObjectsFillsTheSpace)

@@ -13,9 +13,10 @@ class Allocator;
 
 template <typename WORD_TYPE>
 class Allocator {
- private:
+private:
   OopBuilder<WORD_TYPE>* oopBuilder;
- public:
+
+public:
   //constructors
   Allocator(OopBuilder<WORD_TYPE>* anOopBuilder);
   Allocator(Allocator const& anotherMemorySpace) = delete;
@@ -40,7 +41,19 @@ void Allocator<WORD_TYPE>::setOopBuilder(const OopBuilder<WORD_TYPE>* anOopBuild
 
 template <typename WORD_TYPE>
 WORD_TYPE* Allocator<WORD_TYPE>::whereToAllocateWords(WORD_TYPE numberOfWords){
-  return oopBuilder -> getMemorySpace() -> getStartAddress();
+  MemorySpace<WORD_TYPE>* memorySpace = oopBuilder -> getMemorySpace();
+  Oop<WORD_TYPE> firstOop =  memorySpace -> firstOop();
+  Oop<WORD_TYPE> resultOop = firstOop;
+  
+  while(resultOop.getAddress() < memorySpace -> getEndAddress()){
+    if(resultOop.isFreeOop() && resultOop.wordSize() >= numberOfWords ){ break; }
+    resultOop = resultOop.nextOop();
+  }
+  
+  if(resultOop.getAddress() >= memorySpace -> getEndAddress()){
+    std::abort(); }//Maybe an error?
+  
+  return resultOop.getAddress();
 }
 
 #endif

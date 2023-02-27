@@ -29,6 +29,8 @@ public:
   void operator=(OopBuilder const& anotherMemorySpace) = delete;
   
   void initialize();
+  void reset();
+  
   void setNumberOfSlots(WORD_TYPE numberOfSlots);
   void setFormat(WORD_TYPE format);
   void setClassIndex(WORD_TYPE classIndex);
@@ -67,6 +69,12 @@ WORD_TYPE* OopBuilder<WORD_TYPE>::build(){
   return address;
 }
 
+
+// API, for code readability
+template <typename WORD_TYPE>
+void OopBuilder<WORD_TYPE>::reset(){
+  this -> initialize();
+}
 
 template <typename WORD_TYPE>
 void OopBuilder<WORD_TYPE>::initialize(){
