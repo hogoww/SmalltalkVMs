@@ -1,0 +1,2 @@
+#basic
+addTest(testSlotAtPut)

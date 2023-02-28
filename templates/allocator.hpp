@@ -19,23 +19,15 @@ private:
 public:
   //constructors
   Allocator(OopBuilder<WORD_TYPE>* anOopBuilder);
-  Allocator(Allocator const& anotherMemorySpace) = delete;
+  Allocator(Allocator const& anotherAllocator) = delete;
   void operator=(Allocator const& anotherMemorySpace) = delete;
-  
-  //accessors
-  void setOopBuilder(const OopBuilder<WORD_TYPE>* anOopBuilder);
-  
+    
   //API
   WORD_TYPE* whereToAllocateWords(WORD_TYPE numberOfWords);
 };
 
 template <typename WORD_TYPE>
 Allocator<WORD_TYPE>::Allocator(OopBuilder<WORD_TYPE>* anOopBuilder){
-  this -> oopBuilder = anOopBuilder;
-}
-
-template <typename WORD_TYPE>
-void Allocator<WORD_TYPE>::setOopBuilder(const OopBuilder<WORD_TYPE>* anOopBuilder){
   this -> oopBuilder = anOopBuilder;
 }
 

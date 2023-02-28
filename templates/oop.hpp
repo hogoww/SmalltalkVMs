@@ -1,4 +1,3 @@
-
 #ifndef __OOP__HPP__
 #define __OOP__HPP__
 
@@ -25,6 +24,11 @@ class Oop {
   //  bool isOOP();
   bool isFreeOop();
 
+
+  //Accessing
+  Oop<WORD_TYPE> slotAt(WORD_TYPE anIndex);
+  void slotAtPut(WORD_TYPE anIndex, WORD_TYPE* anOopAddress);
+    
   //Navigating
   Oop<WORD_TYPE> nextOop();
 
@@ -79,6 +83,17 @@ WORD_TYPE Oop<WORD_TYPE>::bitSize(){
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::wordSize(){
   return this -> numberOfSlotsBits() + 1;
+}
+
+template <typename WORD_TYPE>
+Oop<WORD_TYPE> Oop<WORD_TYPE>::slotAt(WORD_TYPE anIndex){
+  Oop<WORD_TYPE> slot( (WORD_TYPE*) this -> address[anIndex]);
+  return slot;
+}
+
+template <typename WORD_TYPE>
+void Oop<WORD_TYPE>::slotAtPut(WORD_TYPE anIndex, WORD_TYPE* anOopAddress){
+  this -> address[anIndex] = (WORD_TYPE) anOopAddress;
 }
 
 #include "memoryModel.cpp"

@@ -12,6 +12,7 @@ class MemorySpace;
 
 #include "oop.hpp"
 #include "allocator.hpp"
+#include "garbageCollector.hpp"
 
 template <typename WORD_TYPE>
 class MemorySpace {
@@ -19,6 +20,8 @@ class MemorySpace {
   WORD_TYPE* startAddress;
   WORD_TYPE* endAddress;
   OopBuilder<WORD_TYPE>* oopBuilder;
+  GarbageCollector<WORD_TYPE>* garbageCollector;
+  
  public:
   //constructors
   MemorySpace();
@@ -110,6 +113,7 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
   
   //const_cast<MemorySpace<WORD_TYPE>*>;
   this -> oopBuilder = new OopBuilder<WORD_TYPE>(this);
+  this -> garbageCollector = new GarbageCollector<WORD_TYPE>(this);
 }
 
 template <typename WORD_TYPE>
