@@ -49,6 +49,7 @@ class MemorySpace {
 
   //accessors
   OopBuilder<WORD_TYPE>* getOopBuilder();
+  GarbageCollector<WORD_TYPE>* getGarbageCollector();
 };
 
 
@@ -152,6 +153,11 @@ WORD_TYPE MemorySpace<WORD_TYPE>::wordSpaceSize(){
 template <typename WORD_TYPE>
 OopBuilder<WORD_TYPE>* MemorySpace<WORD_TYPE>::getOopBuilder(){
   return this -> oopBuilder;
+}
+
+template <typename WORD_TYPE>
+GarbageCollector<WORD_TYPE>* MemorySpace<WORD_TYPE>::getGarbageCollector(){
+  return this -> garbageCollector;
 }
 
 

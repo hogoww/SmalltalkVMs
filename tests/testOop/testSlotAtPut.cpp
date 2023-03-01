@@ -10,9 +10,6 @@ int main(){
   OopBuilder<WORD_TYPE>* oopBuilder = ms.getOopBuilder();
   oopBuilder -> setNumberOfSlots(1);
   oopBuilder -> build();
-  
-  oopBuilder -> reset();
-  oopBuilder -> setNumberOfSlots(2);
   oopBuilder -> build();
   
   Oop<WORD_TYPE> container = ms.firstOop();

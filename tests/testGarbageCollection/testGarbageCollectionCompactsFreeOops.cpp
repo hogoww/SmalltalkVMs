@@ -9,8 +9,7 @@
 int main(){
   MemorySpace<WORD_TYPE> ms(640);
   OopBuilder<WORD_TYPE>* oopBuilder = ms.getOopBuilder();
-  std::vector<WORD_TYPE*> roots(2);
-  oopBuilder -> build();
+  std::vector<WORD_TYPE*> roots;
   oopBuilder -> build();
   
   ms.getGarbageCollector() -> collectFromRoots(roots);

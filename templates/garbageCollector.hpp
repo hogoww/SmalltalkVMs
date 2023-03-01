@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <vector>
+#include <stack>
 
 template <typename WORD_TYPE>
 class GarbageCollector;
@@ -24,7 +25,11 @@ public:
   void operator=(GarbageCollector const& anotherMemorySpace) = delete;
     
   //API
-  void collectFromRoots(std::vector<WORD_TYPE> roots);
+  void collectFromRoots(std::vector<WORD_TYPE*> roots);
+
+  //internals
+  void markOopsFromRoots(std::vector<WORD_TYPE*> roots);
+  void sweepOops();
 };
 
 template <typename WORD_TYPE>
@@ -33,8 +38,47 @@ GarbageCollector<WORD_TYPE>::GarbageCollector(MemorySpace<WORD_TYPE>* aMemorySpa
 }
 
 template <typename WORD_TYPE>
-void GarbageCollector<WORD_TYPE>::collectFromRoots(std::vector<WORD_TYPE> roots){
-  
+void GarbageCollector<WORD_TYPE>::collectFromRoots(std::vector<WORD_TYPE*> roots){
+  this -> markOopsFromRoots(roots);
+  this -> sweepOops();
+}
+
+template <typename WORD_TYPE>
+void GarbageCollector<WORD_TYPE>::markOopsFromRoots(std::vector<WORD_TYPE*> roots){
+  std::stack<WORD_TYPE*> oopToMark;
+  for (auto aRoot = roots.cbegin(); aRoot != roots.cend(); ++aRoot){
+    oopToMark.push(*aRoot);
+  }
+
+  while (not oopToMark.empty()){
+    Oop<WORD_TYPE> anOop(oopToMark.top());
+    oopToMark.pop();
+    
+    if( not anOop.markedBit() ){
+      std::cout << "marking :" << anOop.getAddress() << std::endl;
+      anOop.setMarkedBit();
+      //FLAG should NOT iterate over slots. This is the Oop responsibility
+      for (WORD_TYPE anIndex = 1; anIndex <= anOop.numberOfSlotsBits() ; ++anIndex){
+	oopToMark.push(anOop.slotAt(anIndex).getAddress());
+      }
+    }
+  }    
+}
+
+template <typename WORD_TYPE>
+void GarbageCollector<WORD_TYPE>::sweepOops(){
+  Oop<WORD_TYPE> currentOop = memorySpace -> firstOop();
+  while ( currentOop.getAddress() < memorySpace -> getEndAddress() ){
+    if(currentOop.markedBit()){
+      currentOop.unsetMarkedBit();
+    }
+    else {
+      currentOop.becomeFreeOop();
+    }
+    
+    currentOop = currentOop.nextOop();
+  }
 }
 
 #endif
+

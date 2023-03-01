@@ -11,10 +11,9 @@ int main(){
   OopBuilder<WORD_TYPE>* oopBuilder = ms.getOopBuilder();
   std::vector<WORD_TYPE*> roots;
   roots.push_back(oopBuilder -> build());
-  roots.push_back(oopBuilder -> build());
   
-  ms.getGarbageCollector() -> collectFromRoots(roots);
-  
-  cAssert(__LINE__, not ms.firstOop().isFreeOop());
+  ms.getGarbageCollector() -> markOopsFromRoots(roots);
+  cAssert(__LINE__, ms.firstOop().markedBit());
+
   testPassed();
 }

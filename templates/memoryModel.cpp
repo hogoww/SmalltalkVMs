@@ -61,7 +61,12 @@ WORD_TYPE Oop<WORD_TYPE>::markedBit(){
 
 template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::setMarkedBit(){
-  this -> setHeader((this->getHeader() | 0x1FF));
+  this -> setHeader((this->getHeader() | 0x100));
+}
+
+template <typename WORD_TYPE>
+void Oop<WORD_TYPE>::unsetMarkedBit(){
+  this -> setHeader((this->getHeader() & 0xFFFFFFFFFFFFFEFF));
 }
 
 template <typename WORD_TYPE>

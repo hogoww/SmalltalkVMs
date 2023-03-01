@@ -10,11 +10,15 @@ int main(){
   MemorySpace<WORD_TYPE> ms(640);
   OopBuilder<WORD_TYPE>* oopBuilder = ms.getOopBuilder();
   std::vector<WORD_TYPE*> roots;
-  roots.push_back(oopBuilder -> build());
+  oopBuilder -> setNumberOfSlots(1);
   roots.push_back(oopBuilder -> build());
   
-  ms.getGarbageCollector() -> collectFromRoots(roots);
+  oopBuilder -> reset();
+  ms.firstOop().slotAtPut(1, oopBuilder -> build());
   
-  cAssert(__LINE__, not ms.firstOop().isFreeOop());
+  ms.getGarbageCollector() -> markOopsFromRoots(roots);
+  
+  cAssert(__LINE__, ms.firstOop().nextOop().markedBit());
   testPassed();
 }
+

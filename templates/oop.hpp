@@ -23,7 +23,7 @@ class Oop {
   //  bool isInteger();
   //  bool isOOP();
   bool isFreeOop();
-
+  void becomeFreeOop();
 
   //Accessing
   Oop<WORD_TYPE> slotAt(WORD_TYPE anIndex);
@@ -46,6 +46,7 @@ Oop<WORD_TYPE>::Oop(WORD_TYPE* anAddress){
 //This constructor should be only used for its Mock subclass.
 template <typename WORD_TYPE>
 Oop<WORD_TYPE>::Oop(){
+  std::cout << "should never be called" << std::endl;
   this -> address = NULL;
 }
 
@@ -67,6 +68,11 @@ WORD_TYPE* Oop<WORD_TYPE>::getAddress(){
 template <typename WORD_TYPE>
 bool Oop<WORD_TYPE>::isFreeOop(){
   return this-> classIndexBits() == specialClassIndexes::freeObject;
+}
+
+template <typename WORD_TYPE>
+void Oop<WORD_TYPE>::becomeFreeOop(){
+  this-> setClassIndexBits(specialClassIndexes::freeObject);
 }
 
 template <typename WORD_TYPE>

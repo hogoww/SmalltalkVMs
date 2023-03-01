@@ -14,6 +14,7 @@ WORD_TYPE immutableBit();
 void setImmutableBit();
 WORD_TYPE markedBit();
 void setMarkedBit();
+void unsetMarkedBit();
 WORD_TYPE pinnedBit();
 void setPinnedBit();
 WORD_TYPE greyBit();
