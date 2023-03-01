@@ -1,0 +1,5 @@
+#basic
+addTest(testGarbageCollectionDoesNotReclaimRoots)
+addTest(testGarbageCollectionDoesNotReclaimSlotOfRoot)
+addTest(testGarbageCollectionReclaimsAllObjectsWithoutRoots)
+addTest(testGarbageCollectionCompactsFreeOops)
