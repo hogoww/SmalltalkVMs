@@ -30,6 +30,7 @@ public:
   //internals
   void markOopsFromRoots(std::vector<WORD_TYPE*> roots);
   void sweepOops();
+  void mergeFreeOops();
 };
 
 template <typename WORD_TYPE>
@@ -41,6 +42,7 @@ template <typename WORD_TYPE>
 void GarbageCollector<WORD_TYPE>::collectFromRoots(std::vector<WORD_TYPE*> roots){
   this -> markOopsFromRoots(roots);
   this -> sweepOops();
+  this -> mergeFreeOops();
 }
 
 template <typename WORD_TYPE>
@@ -79,6 +81,24 @@ void GarbageCollector<WORD_TYPE>::sweepOops(){
     currentOop = currentOop.nextOop();
   }
 }
+
+template <typename WORD_TYPE>
+void GarbageCollector<WORD_TYPE>::mergeFreeOops(){
+  WORD_TYPE* endAddress = memorySpace -> getEndAddress();
+  Oop<WORD_TYPE> currentOop = memorySpace -> firstOop();
+  Oop<WORD_TYPE> nextOop = currentOop.nextOop();
+    
+  while ( currentOop.getAddress() < endAddress ){
+    if(currentOop.isFreeOop() && currentOop.nextOop().getAddress() < endAddress && currentOop.nextOop().isFreeOop()){
+      // + 1 because the header has the same size as a slot (at this time)
+      currentOop.setNumberOfSlotsBits(currentOop.numberOfSlotsBits() + nextOop.numberOfSlotsBits() + 1);
+    }
+    
+    currentOop = currentOop.nextOop();
+    nextOop = currentOop.nextOop();
+  }
+}
+
 
 #endif
 
