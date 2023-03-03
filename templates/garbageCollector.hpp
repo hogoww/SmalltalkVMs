@@ -82,6 +82,7 @@ void GarbageCollector<WORD_TYPE>::sweepOops(){
   }
 }
 
+
 template <typename WORD_TYPE>
 void GarbageCollector<WORD_TYPE>::mergeFreeOops(){
   WORD_TYPE* endAddress = memorySpace -> getEndAddress();
@@ -89,13 +90,15 @@ void GarbageCollector<WORD_TYPE>::mergeFreeOops(){
   Oop<WORD_TYPE> nextOop = currentOop.nextOop();
     
   while ( currentOop.getAddress() < endAddress ){
-    if(currentOop.isFreeOop() && currentOop.nextOop().getAddress() < endAddress && currentOop.nextOop().isFreeOop()){
+    if(currentOop.isFreeOop() && nextOop.getAddress() < endAddress && nextOop.isFreeOop()){
       // + 1 because the header has the same size as a slot (at this time)
       currentOop.setNumberOfSlotsBits(currentOop.numberOfSlotsBits() + nextOop.numberOfSlotsBits() + 1);
     }
-    
-    currentOop = currentOop.nextOop();
+    else {
+      currentOop = currentOop.nextOop();
+    }
     nextOop = currentOop.nextOop();
+      
   }
 }
 

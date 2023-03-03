@@ -2,7 +2,7 @@
 addTest(testGarbageCollectionDoesNotReclaimRoots)
 addTest(testGarbageCollectionDoesNotReclaimSlotOfRoot)
 addTest(testGarbageCollectionReclaimsAllObjectsWithoutRoots)
-addTest(testGarbageCollectionCompactsFreeOops)
+addTest(testGarbageCollectionCreatesHole)
 
 #mark
 addTest(testMarkRoots)
@@ -10,3 +10,7 @@ addTest(testMarkSlotOfRoot)
 
 #sweep
 addTest(testSweepClearsMarketBit)
+
+#FreeOop Compaction
+addTest(testGarbageCollectionCompactsFreeOopReclaimedBeforeAFreeOop)
+addTest(testGarbageCollectionCompactsFreeOopReclaimedAfterAFreeOop)
