@@ -14,7 +14,6 @@ class Oop {
  public:
   //constructors
   Oop(WORD_TYPE* address);
-  Oop();
   
   //Accessing
   OopHeader<WORD_TYPE> getHeader();
@@ -45,13 +44,6 @@ template <typename WORD_TYPE>
 Oop<WORD_TYPE>::Oop(WORD_TYPE* anAddress){
   this -> address = anAddress;
   this -> header = OopHeader(anAddress);
-}
-
-//This constructor should be only used for its Mock subclass.
-template <typename WORD_TYPE>
-Oop<WORD_TYPE>::Oop(){
-  std::cout << "should never be called" << std::endl;
-  this -> address = NULL;
 }
 
 template <typename WORD_TYPE>

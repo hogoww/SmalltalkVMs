@@ -1,4 +1,4 @@
-#include "oopMock.hpp"
+#include "oop.hpp"
 #include "cTestCase.h"
 
 #ifndef WORD_TYPE
@@ -6,7 +6,7 @@
 #endif
 
 int main(){
-  OopMock<WORD_TYPE> oop;
+  Oop<WORD_TYPE> oop(new WORD_TYPE[1]);
   oop.setHeader(0xFEFF);
   cAssert(__LINE__, ! oop.getHeader().markedBit());
   testPassed();
