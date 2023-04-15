@@ -1,6 +1,2 @@
-add_subdirectory(pharoMemoryModel)
-
 target_include_directories(smalltalkVM PUBLIC
 				       ".")
-
-
