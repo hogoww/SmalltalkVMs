@@ -6,9 +6,9 @@ add_executable(smalltalkVM)
 add_subdirectory(src)
 
 
-target_include_directories(smalltalkVM PUBLIC
-				       "${PROJECT_SOURCE_DIR}/includes/"
-				       "${PROJECT_SOURCE_DIR}/templates")
+add_subdirectory(templates/)
+add_subdirectory(includes/)
+
 
 
 ###Debug
