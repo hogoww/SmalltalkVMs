@@ -9,7 +9,7 @@ int main(){
   OopMock<WORD_TYPE> oop;
   WORD_TYPE format = 4;
   oop.setHeader(0);
-  oop.setFormatBits(format);
-  cAssertInts(__LINE__, oop.formatBits(), format);
+  oop.getHeader().setFormatBits(format);
+  cAssertInts(__LINE__, oop.getHeader().formatBits(), format);
   testPassed();
 }

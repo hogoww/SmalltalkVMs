@@ -6,7 +6,6 @@
 template <typename WORD_TYPE>
 class OopMock : public Oop<WORD_TYPE> {
  public:
-  #include "memoryModel.h"
   //constructors
   OopMock();
   ~OopMock();

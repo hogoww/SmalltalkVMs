@@ -8,6 +8,6 @@
 int main(){
   OopMock<WORD_TYPE> oop;
   oop.setHeader(0xEFFFFFFFFFF);
-  cAssert(__LINE__, ! oop.immutableBit());
+  cAssert(__LINE__, ! oop.getHeader().immutableBit());
   testPassed();
 }

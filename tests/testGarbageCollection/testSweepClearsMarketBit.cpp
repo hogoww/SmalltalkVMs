@@ -18,7 +18,7 @@ int main(){
   
   ms.getGarbageCollector() -> collectFromRoots(roots);
   
-  cAssert(__LINE__, not ms.firstOop().markedBit());
+  cAssert(__LINE__, not ms.firstOop().getHeader().markedBit());
   testPassed();
 }
 

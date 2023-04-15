@@ -20,4 +20,5 @@ int main(){
       testPassed();
     }
   cAssert(__LINE__, ms->isUninitialized());
+  testPassed();
 }

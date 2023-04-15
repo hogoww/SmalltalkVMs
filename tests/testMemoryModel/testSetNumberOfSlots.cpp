@@ -9,7 +9,7 @@ int main(){
   OopMock<WORD_TYPE> oop;
   WORD_TYPE numberOfSlots = 5;
   oop.setHeader(0);
-  oop.setNumberOfSlotsBits(numberOfSlots);
-  cAssertInts(__LINE__, oop.numberOfSlotsBits(), numberOfSlots);
+  oop.getHeader().setNumberOfSlotsBits(numberOfSlots);
+  cAssertInts(__LINE__, oop.getHeader().numberOfSlotsBits(), numberOfSlots);
   testPassed();
 }

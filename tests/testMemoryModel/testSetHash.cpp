@@ -9,7 +9,7 @@ int main(){
   OopMock<WORD_TYPE> oop;
   WORD_TYPE hash = 549;
   oop.setHeader(0);
-  oop.setHashBits(hash);
-  cAssertInts(__LINE__, oop.hashBits(), hash);
+  oop.getHeader().setHashBits(hash);
+  cAssertInts(__LINE__, oop.getHeader().hashBits(), hash);
   testPassed();
 }

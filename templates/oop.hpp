@@ -1,6 +1,7 @@
 #ifndef __OOP__HPP__
 #define __OOP__HPP__
 
+#include "oopHeader.hpp"
 #include "specialClassIndexes.h"
 #include <cstdlib> // for NULL
 #include <iostream>
@@ -9,23 +10,25 @@ template <typename WORD_TYPE>
 class Oop {
  protected:
   WORD_TYPE* address;
-
+  OopHeader<WORD_TYPE> header;
  public:
-  #include "memoryModel.h"
   //constructors
   Oop(WORD_TYPE* address);
   Oop();
   
   //Accessing
-  WORD_TYPE getHeader();
+  OopHeader<WORD_TYPE> getHeader();
+  WORD_TYPE headerValue();
   void setHeader(const WORD_TYPE anHeader);
   WORD_TYPE* getAddress();
+
+  //Testing
   //  bool isInteger();
   //  bool isOOP();
   bool isFreeOop();
   void becomeFreeOop();
 
-  //Accessing
+  //Accessing Slots
   Oop<WORD_TYPE> slotAt(WORD_TYPE anIndex);
   void slotAtPut(WORD_TYPE anIndex, WORD_TYPE* anOopAddress);
     
@@ -41,6 +44,7 @@ class Oop {
 template <typename WORD_TYPE>
 Oop<WORD_TYPE>::Oop(WORD_TYPE* anAddress){
   this -> address = anAddress;
+  this -> header = OopHeader(anAddress);
 }
 
 //This constructor should be only used for its Mock subclass.
@@ -52,12 +56,18 @@ Oop<WORD_TYPE>::Oop(){
 
 template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::setHeader(const WORD_TYPE anHeader){
-  *(this -> address) = anHeader;
+  this -> header.setHeader(anHeader);
 }
 
 template <typename WORD_TYPE>
-WORD_TYPE Oop<WORD_TYPE>::getHeader(){
-  return *(this -> address);
+OopHeader<WORD_TYPE> Oop<WORD_TYPE>::getHeader(){
+  return this -> header;
+}
+
+//shortcut
+template <typename WORD_TYPE>
+WORD_TYPE Oop<WORD_TYPE>::headerValue(){
+  return this -> header.headerValue();
 }
 
 template <typename WORD_TYPE>
@@ -67,12 +77,12 @@ WORD_TYPE* Oop<WORD_TYPE>::getAddress(){
 
 template <typename WORD_TYPE>
 bool Oop<WORD_TYPE>::isFreeOop(){
-  return this-> classIndexBits() == specialClassIndexes::freeObject;
+  return this -> header.classIndexBits() == specialClassIndexes::freeObject;
 }
 
 template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::becomeFreeOop(){
-  this-> setClassIndexBits(specialClassIndexes::freeObject);
+  this -> header.setClassIndexBits(specialClassIndexes::freeObject);
 }
 
 template <typename WORD_TYPE>
@@ -83,12 +93,12 @@ Oop<WORD_TYPE>  Oop<WORD_TYPE>::nextOop(){
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::bitSize(){
-  return this -> wordSize() * sizeof(WORD_TYPE) * 8;
+  return this -> header.bitSize();
 }
 
 template <typename WORD_TYPE>
 WORD_TYPE Oop<WORD_TYPE>::wordSize(){
-  return this -> numberOfSlotsBits() + 1;
+  return this -> header.wordSize();
 }
 
 template <typename WORD_TYPE>
@@ -101,7 +111,5 @@ template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::slotAtPut(WORD_TYPE anIndex, WORD_TYPE* anOopAddress){
   this -> address[anIndex] = (WORD_TYPE) anOopAddress;
 }
-
-#include "memoryModel.cpp"
 
 #endif

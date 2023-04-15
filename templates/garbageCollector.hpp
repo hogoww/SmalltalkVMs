@@ -56,11 +56,11 @@ void GarbageCollector<WORD_TYPE>::markOopsFromRoots(std::vector<WORD_TYPE*> root
     Oop<WORD_TYPE> anOop(oopToMark.top());
     oopToMark.pop();
     
-    if( not anOop.markedBit() ){
+    if( not anOop.getHeader().markedBit() ){
       std::cout << "marking :" << anOop.getAddress() << std::endl;
-      anOop.setMarkedBit();
+      anOop.getHeader().setMarkedBit();
       //FLAG should NOT iterate over slots. This is the Oop responsibility
-      for (WORD_TYPE anIndex = 1; anIndex <= anOop.numberOfSlotsBits() ; ++anIndex){
+      for (WORD_TYPE anIndex = 1; anIndex <= anOop.getHeader().numberOfSlotsBits() ; ++anIndex){
 	oopToMark.push(anOop.slotAt(anIndex).getAddress());
       }
     }
@@ -71,8 +71,8 @@ template <typename WORD_TYPE>
 void GarbageCollector<WORD_TYPE>::sweepOops(){
   Oop<WORD_TYPE> currentOop = memorySpace -> firstOop();
   while ( currentOop.getAddress() < memorySpace -> getEndAddress() ){
-    if(currentOop.markedBit()){
-      currentOop.unsetMarkedBit();
+    if(currentOop.getHeader().markedBit()){
+      currentOop.getHeader().unsetMarkedBit();
     }
     else {
       currentOop.becomeFreeOop();
@@ -92,7 +92,7 @@ void GarbageCollector<WORD_TYPE>::mergeFreeOops(){
   while ( currentOop.getAddress() < endAddress ){
     if(currentOop.isFreeOop() && nextOop.getAddress() < endAddress && nextOop.isFreeOop()){
       // + 1 because the header has the same size as a slot (at this time)
-      currentOop.setNumberOfSlotsBits(currentOop.numberOfSlotsBits() + nextOop.numberOfSlotsBits() + 1);
+      currentOop.getHeader().setNumberOfSlotsBits(currentOop.getHeader().numberOfSlotsBits() + nextOop.getHeader().numberOfSlotsBits() + 1);
     }
     else {
       currentOop = currentOop.nextOop();

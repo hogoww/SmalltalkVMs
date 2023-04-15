@@ -8,7 +8,7 @@
 int main(){
   OopMock<WORD_TYPE> oop;
   oop.setHeader(0);
-  oop.setImmutableBit();
-  cAssert(__LINE__, oop.immutableBit());
+  oop.getHeader().setImmutableBit();
+  cAssert(__LINE__, oop.getHeader().immutableBit());
   testPassed();
 }

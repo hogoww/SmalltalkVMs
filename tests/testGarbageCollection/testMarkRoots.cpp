@@ -13,7 +13,7 @@ int main(){
   roots.push_back(oopBuilder -> build());
   
   ms.getGarbageCollector() -> markOopsFromRoots(roots);
-  cAssert(__LINE__, ms.firstOop().markedBit());
+  cAssert(__LINE__, ms.firstOop().getHeader().markedBit());
 
   testPassed();
 }

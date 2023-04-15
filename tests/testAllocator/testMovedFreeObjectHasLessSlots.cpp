@@ -11,6 +11,6 @@ int main(){
   oopBuilder -> setNumberOfSlots(1);
   oopBuilder -> build();
     
-  cAssertInts(__LINE__, ms.firstOop().nextOop().numberOfSlotsBits(), ms.wordSpaceSize() - 2 - 1);// 2 == oop header + slot, 1 == freeOopheader
+  cAssertInts(__LINE__, ms.firstOop().nextOop().getHeader().numberOfSlotsBits(), ms.wordSpaceSize() - 2 - 1);// 2 == oop header + slot, 1 == freeOopheader
   testPassed();
 }

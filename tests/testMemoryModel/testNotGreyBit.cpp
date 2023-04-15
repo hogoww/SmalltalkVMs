@@ -8,6 +8,6 @@
 int main(){
   OopMock<WORD_TYPE> oop;
   oop.setHeader(0x8FFFFFFFF);
-  cAssert(__LINE__, ! oop.greyBit());
+  cAssert(__LINE__, ! oop.getHeader().greyBit());
   testPassed();
 }
