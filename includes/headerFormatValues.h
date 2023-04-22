@@ -9,7 +9,7 @@ namespace headerFormatValues{
   const int weakIndexableWithSlotsFormat = 4; // Weak Array
   const int weakNonIndexableWithSlotsFormat = 5; // Ephemerons
   // 6 is unused
-  const int immediatesFormat = 7; // Smallinteger, Characters, BoxedFloats
+  const int immediateFormat = 7; // Smallinteger, Characters, BoxedFloats
   // 8 is unused
   const int i64BitIndexable = 9;
 
