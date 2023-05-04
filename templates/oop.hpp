@@ -93,12 +93,16 @@ WORD_TYPE Oop<WORD_TYPE>::wordSize(){
 
 template <typename WORD_TYPE>
 Oop<WORD_TYPE> Oop<WORD_TYPE>::slotAt(WORD_TYPE anIndex){
-  Oop<WORD_TYPE> slot( (WORD_TYPE*) this -> address[anIndex]);
+  if(anIndex == 0 || anIndex > this -> getHeader().numberOfSlotsBits())
+    { exit(1); }
+  Oop<WORD_TYPE> slot((WORD_TYPE*) this -> address[anIndex]);
   return slot;
 }
 
 template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::slotAtPut(WORD_TYPE anIndex, WORD_TYPE* anOopAddress){
+  if(anIndex == 0 || anIndex > this -> getHeader().numberOfSlotsBits())
+    { exit(1); }
   this -> address[anIndex] = (WORD_TYPE) anOopAddress;
 }
 
