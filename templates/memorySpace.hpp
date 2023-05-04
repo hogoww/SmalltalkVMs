@@ -107,10 +107,10 @@ void MemorySpace<WORD_TYPE>::initializeForBitSize(WORD_TYPE spaceSize){
   this -> startAddress = new WORD_TYPE[numberOfWords];
   this -> endAddress = this -> startAddress + spaceSize;
 
-  Oop<WORD_TYPE> firstOop = this -> firstOop();
-  firstOop.getHeader().setClassIndexBits(specialClassIndexes::freeObject);
+  OopHeader<WORD_TYPE> firstOop(startAddress);
+  firstOop.setClassIndexBits(specialClassIndexes::freeObject);
   //should also set up the format to avoid accidental indexable formats
-  firstOop.getHeader().setNumberOfSlotsBits(this -> wordSpaceSize() - 1); //header
+  firstOop.setNumberOfSlotsBits(this -> wordSpaceSize() - 1); //header
   
   //const_cast<MemorySpace<WORD_TYPE>*>;
   this -> oopBuilder = new OopBuilder<WORD_TYPE>(this);
