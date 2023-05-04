@@ -41,10 +41,8 @@ class Oop {
 
 
 template <typename WORD_TYPE>
-Oop<WORD_TYPE>::Oop(WORD_TYPE* anAddress){
-  this -> address = anAddress;
-  this -> header = OopHeader(anAddress);
-}
+Oop<WORD_TYPE>::Oop(WORD_TYPE* anAddress):address(anAddress), header(anAddress)
+{}
 
 template <typename WORD_TYPE>
 void Oop<WORD_TYPE>::setHeader(const WORD_TYPE anHeader){
