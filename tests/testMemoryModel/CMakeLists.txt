@@ -33,3 +33,6 @@ addTest(testSetClassIndex)
 
 #size
 #addTest(testBitSize)
+
+#
+addTest(testResetHeaderResetsHeader)

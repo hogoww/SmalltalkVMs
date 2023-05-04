@@ -62,7 +62,7 @@ WORD_TYPE* OopBuilder<WORD_TYPE>::build(){
   newFreeOop.getHeader().setHeader(newOop.getHeader().headerValue());
   newFreeOop.getHeader().setNumberOfSlotsBits(newFreeOop.getHeader().numberOfSlotsBits() - numberOfWords);
 
-  newOop.setHeader(0x0000000000000000);
+  newOop.getHeader().resetHeader();
   newOop.getHeader().setNumberOfSlotsBits(this -> numberOfSlots);
   newOop.getHeader().setFormatBits(this -> format);
   newOop.getHeader().setClassIndexBits(this -> classIndex);

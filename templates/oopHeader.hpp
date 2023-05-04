@@ -23,6 +23,7 @@ class OopHeader {
   WORD_TYPE headerValue();
   void setHeader(const WORD_TYPE anHeader);
   WORD_TYPE* getAddress();
+  void resetHeader();
 
   //Size
   WORD_TYPE bitSize();
@@ -50,6 +51,11 @@ void OopHeader<WORD_TYPE>::setHeader(const WORD_TYPE anHeader){
 template <typename WORD_TYPE>
 WORD_TYPE OopHeader<WORD_TYPE>::headerValue(){
   return *(this -> address);
+}
+
+template <typename WORD_TYPE>
+void OopHeader<WORD_TYPE>::resetHeader(){
+  this -> setHeader(0);
 }
 
 template <typename WORD_TYPE>
