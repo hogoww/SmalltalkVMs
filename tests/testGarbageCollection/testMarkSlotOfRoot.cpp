@@ -9,7 +9,7 @@
 int main(){
   MemorySpace<WORD_TYPE> ms(640);
   OopBuilder<WORD_TYPE>* oopBuilder = ms.getOopBuilder();
-  std::vector<WORD_TYPE*> roots;
+  std::vector<WORD_TYPE*> roots(0);
   oopBuilder -> setNumberOfSlots(1);
   roots.push_back(oopBuilder -> build());
   
