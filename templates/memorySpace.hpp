@@ -75,18 +75,20 @@ MemorySpace<WORD_TYPE>::MemorySpace(){
 
 template <typename WORD_TYPE>
 MemorySpace<WORD_TYPE>::~MemorySpace(){
-  if( this -> isUninitialized()){ return; }
-  
   std::cout<<"destroying the memory space" << std::endl;
-  delete[] startAddress;
+  this ->  uninitialize();
 }
 
 
 // Initialization
 template <typename WORD_TYPE>
 void MemorySpace<WORD_TYPE>::uninitialize(){
-   startAddress = NULL;
-   endAddress = NULL;
+  if( this -> isUninitialized()){ return; }
+  
+
+  delete[] startAddress;
+  startAddress = NULL;
+  endAddress = NULL;
 }
 
 template <typename WORD_TYPE>
