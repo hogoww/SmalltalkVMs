@@ -17,7 +17,7 @@ public:
 
 template <typename WORD_TYPE>
 bool ImmediateOop<WORD_TYPE>::isImmediateOop(WORD_TYPE* oop){
-  return OopHeader(oop).formatBits() == headerFormatValues::immediateFormat;
+  return OopHeader<WORD_TYPE>(oop).formatBits() == headerFormatValues::immediateFormat;
 }
 
 
