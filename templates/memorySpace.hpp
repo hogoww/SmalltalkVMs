@@ -63,7 +63,8 @@ MemorySpace<WORD_TYPE>::MemorySpace(WORD_TYPE spaceSize){
 
 template <typename WORD_TYPE>
 MemorySpace<WORD_TYPE>::MemorySpace(){
-  this -> uninitialize();
+  startAddress = NULL;
+  endAddress = NULL;
 }
 
 // template <typename WORD_TYPE>
@@ -76,7 +77,7 @@ MemorySpace<WORD_TYPE>::MemorySpace(){
 template <typename WORD_TYPE>
 MemorySpace<WORD_TYPE>::~MemorySpace(){
   std::cout<<"destroying the memory space" << std::endl;
-  this ->  uninitialize();
+  this -> uninitialize();
 }
 
 
@@ -85,7 +86,6 @@ template <typename WORD_TYPE>
 void MemorySpace<WORD_TYPE>::uninitialize(){
   if( this -> isUninitialized()){ return; }
   
-
   delete[] startAddress;
   startAddress = NULL;
   endAddress = NULL;
