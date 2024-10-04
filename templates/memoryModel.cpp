@@ -91,7 +91,7 @@ void OopHeader<WORD_TYPE>::setGreyBit(){
 
 template <typename WORD_TYPE>
 WORD_TYPE OopHeader<WORD_TYPE>::rememberedBit(){
-  return (this->headerValue() & 0x10000000000) >> 34;
+  return (this->headerValue() & 0x10000000000) >> 40;
 }
 
 template <typename WORD_TYPE>
